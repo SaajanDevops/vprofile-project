@@ -93,10 +93,12 @@ pipeline {
                     artifactId: 'vproapp',
                     classifier: '',
                     file: 'target/vprofile-v2.war',
-                    type: 'war'
-                ]
+                    type: 'war' ]
             ]
         )
+    }
+}
+
     }
 }
 
