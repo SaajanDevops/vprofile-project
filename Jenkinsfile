@@ -79,6 +79,30 @@ pipeline {
         }
 
 
+         stage("Publish to Nexus") {
+          steps {
+            nexusArtifactUploader(
+              nexusVersion: 'nexus3',
+              protocol: 'http',
+              nexusUrl: '${NEXUSIP}:${NEXUSPORT}',
+              groupId: 'QA',
+              version: "${env.BUILD_ID}-${BUILD_TIMESTAMP}",
+              repository: 'vprofile-repo',
+              credentialsId: 'nexuslogin',
+              artifacts: [
+                [  artifactId: 'vproapp', 
+                   classifier: '', 
+                   file: 'target/vprofile-v2.war', 
+                   type: 'war'  ]
+              ]
+            )
+
+          }
+
+        }
+
+
+
     }
 }
 
