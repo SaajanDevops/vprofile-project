@@ -40,7 +40,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Unit Test') {
             steps {
                 sh 'mvn -s settings.xml test'
             }
