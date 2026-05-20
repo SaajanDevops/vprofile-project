@@ -78,7 +78,7 @@ pipeline {
             }
         }
 
-        stage("Publish to Nexuss") {
+        stage("Publish to Nexus") {
          steps {
            nexusArtifactUploader(
             nexusVersion: 'nexus3',
