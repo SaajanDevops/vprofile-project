@@ -118,7 +118,7 @@ pipeline {
                 dockerImage = docker.build( appRegistry + ":${env.BUILD_NUMBER}", "/Docker-files/app/multistage/")
             }
 
-            }
+            } 
         }
 
         stage('Upload an app image') {
