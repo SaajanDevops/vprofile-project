@@ -12,34 +12,37 @@ pipeline {
     }
 
     environment {
-       cluster = 'vproappProd'
-       service = 'vprofileapptasks-service-prod'
+        cluster = 'vproappProd'
+        service = 'vprofileapptasks-service-prod'
     }
 
-    stage('Deploy to Staging ECS') {
+    stages {
+
+        stage('Deploy to Prod ECS') {
             steps {
                 script {
                     withAWS(credentials: 'awscreds', region: 'us-east-1') {
                         sh """
-                        aws ecs update-service --cluster ${env.cluster} --service ${env.service} --force-new-deployment
+                            aws ecs update-service \
+                            --cluster ${env.cluster} \
+                            --service ${env.service} \
+                            --force-new-deployment
                         """
                     }
                 }
             }
         }
 
-    
+    }
 
     post {
-
         always {
-
             echo 'Slack Notifications.'
 
             slackSend(
                 channel: '#devopscicd',
                 color: COLOR_MAP[currentBuild.currentResult],
-                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore info at: ${env.BUILD_URL}"
             )
         }
     }
