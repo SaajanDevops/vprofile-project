@@ -44,6 +44,30 @@ pipeline {
             }
         }
 
+        stage('Sonar Code analysis') {
+
+            environment {
+                scannerHome = tool 'sonarscanner'
+            }
+
+            steps {
+                withSonarQubeEnv('sonarserver') {
+
+                    sh """
+                    ${scannerHome}/bin/sonar-scanner \
+                    -Dsonar.projectKey=vprofile \
+                    -Dsonar.projectName=vprofile \
+                    -Dsonar.projectVersion=1.0 \
+                    -Dsonar.sources=src/ \
+                    -Dsonar.java.binaries=target/classes \
+                    -Dsonar.junit.reportsPath=target/surefire-reports \
+                    -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+                    """
+                }
+            }
+        }
+
     }
 }
 
