@@ -120,7 +120,7 @@ pipeline {
             }
         }
 
-        stage("Upload app image to Amazon ECR") {
+        stage("Upload app image to ECR") {
             steps {
                 script {
                     docker.withRegistry(vprofileRegistry, registryCredentials) {
