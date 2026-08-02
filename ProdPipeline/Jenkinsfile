@@ -39,6 +39,7 @@ pipeline {
     }
 }
 
+<<<<<<< HEAD
 // def COLOR_MAP = [
 //     'SUCCESS': 'good',
 //     'FAILURE': 'danger',
@@ -84,3 +85,5 @@ pipeline {
 // }
 
 
+=======
+>>>>>>> jenkins-cicd
